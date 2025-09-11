@@ -1,0 +1,62 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment and configuration files
+.env
+.playwright-mcp
+*.local
+
+# Build and distribution
+dist
+dist-ssr
+node_modules
+
+# Database files
+scripts/backup-db.sh
+scripts/monitor-db.sh
+scripts/restore-db.sh
+
+# Test results
+tests/test-results/*
+
+# Deployment artifacts
+backup/
+deployment-*.tar.gz
+docker-compose.prod.yml
+.docker-compose.override.yml
+
+# CI/CD generated files
+.deployment-state
+.health-check-*
+deployment-report-*.json
+rollback-report-*.json
+cleanup-report-*.json
+
+# Production data
+data/production/
+*.sql.backup
+*.db.backup
+
+# SSH keys and secrets
+*.pem
+*.key
+id_rsa*
+*.crt
+*.p12
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
