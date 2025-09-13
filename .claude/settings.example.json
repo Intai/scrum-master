@@ -7,6 +7,7 @@
       "Bash(docker exec:*)",
       "Bash(docker logs:*)",
       "Bash(find:*)",
+      "Bash(git worktree:*)",
       "Bash(grep:*)",
       "Bash(ls:*)",
       "Bash(make:*)",
