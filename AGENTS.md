@@ -49,4 +49,5 @@ Build an extremely simple web application to pick today's scrum master from a fu
   - Use static HTML files for UI design. Use `mcp__playwright__browser_navigate` and `mcp__playwright__browser_take_screenshot` to take screenshots from one iteration to be fed into the next to improve. Ask for human feedback after each iteration.
 - Our own file names are in hyphenated lower case.
 - Use JavaScript instead of TypeScript.
-- Use `.mjs` in backend Node.js.
+- Initialise React app files manually instead of using `npm create vite` to avoid interactive prompts and ignore existing files.
+- Use `.mjs` for backend Node.js.
