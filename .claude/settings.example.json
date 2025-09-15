@@ -16,6 +16,7 @@
       "Bash(npx:*)",
       "Bash(sqlite3:*)",
       "Bash(timeout:*)",
+      "Bash(tree:*)",
       "mcp__context7__get-library-docs",
       "mcp__context7__resolve-library-id",
       "mcp__playwright__browser_click",
