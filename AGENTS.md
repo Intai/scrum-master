@@ -38,7 +38,7 @@ Build an extremely simple web application to pick today's scrum master from a fu
 - Prioritise `data-testid` attribute over `id`, then `class` and lastly `textContent` when selecting an element.
 - Leverage Playwright's auto-waiting.
 - Avoid hardcoded timeouts as much as possible.
-- Use page objects to centralise browser queries and manipulations.
+- Use page objects to centralise browser queries and manipulations. Test cases should not access dom elements directly.
 - Run browsers headless for debugging by default unless specify otherwise.
 
 # Convention
