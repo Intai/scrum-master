@@ -22,7 +22,7 @@ Build an extremely simple web application to pick today's scrum master from a fu
 - `Playwright` for automation.
 
 # Local Development
-- `make dev` to start development environment on port 8080.
+- `make dev` to start development environment with frontend on port 8080 and backend on port 3000.
 - `make dev-bg` to start development environment in background.
 - `make dev-stop` to stop development environment.
 - `make prod` to start production environment.
