@@ -62,12 +62,10 @@ main() {
   # Parse JSON for additional context if available
   EVENT_TYPE=""
   EVENT_MESSAGE=""
-  USER_NAME=""
   TOOL_NAME=""
   if command -v jq &> /dev/null && [[ -n "$EVENT_JSON" ]]; then
     EVENT_TYPE=$(echo "$EVENT_JSON" | jq -r '.hook_event_name // empty' 2>/dev/null || echo "")
     EVENT_MESSAGE=$(echo "$EVENT_JSON" | jq -r '.message // empty' 2>/dev/null || echo "")
-    USER_NAME=$(echo "$EVENT_JSON" | jq -r '.transcript_path // empty' | awk -F'/' '{print $3}' 2>/dev/null || echo "")
     TOOL_NAME=$(echo "$EVENT_JSON" | jq -r '.tool_name // empty' 2>/dev/null || echo "")
   fi
 
@@ -77,7 +75,7 @@ main() {
   TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
 
   # Build message
-  MESSAGE_TEXT="$EMOJI *$USER_NAME*"
+  MESSAGE_TEXT="$EMOJI *$CLAUDE_HOOK_USER_NAME*"
   if [[ -n "$EVENT_MESSAGE" ]]; then
     MESSAGE_TEXT="$MESSAGE_TEXT: $EVENT_MESSAGE"
   fi
