@@ -5,5 +5,31 @@
       "Read(**/.env.*)",
       "Read(**/credentials.json)"
     ]
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "env $(xargs < .env) $CLAUDE_PROJECT_DIR/.claude/hooks/notify-slack.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "env $(xargs < .env) $CLAUDE_PROJECT_DIR/.claude/hooks/notify-slack.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
   }
 }
