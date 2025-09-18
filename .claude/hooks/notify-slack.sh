@@ -28,8 +28,20 @@ get_event_emoji() {
     "PostToolUse") echo "👍" ;;
     "UserPromptSubmit") echo "💬" ;;
     "SessionStart") echo "🚀" ;;
-    "SessionEnd") echo "⏻" ;;
+    "SessionEnd") echo "👋" ;;
     *) echo "ℹ️" ;;
+  esac
+}
+get_event_emoji_text() {
+  case "$1" in
+    "Notification") echo ":bell:" ;;
+    "Stop") echo ":checkered_flag:" ;;
+    "PreToolUse") echo ":hammer_and_wrench:" ;;
+    "PostToolUse") echo ":thumbsup:" ;;
+    "UserPromptSubmit") echo ":speech_balloon:" ;;
+    "SessionStart") echo ":rocket:" ;;
+    "SessionEnd") echo ":wave:" ;;
+    *) echo ":information_source:" ;;
   esac
 }
 
@@ -75,9 +87,11 @@ main() {
   TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
 
   # Build message
-  MESSAGE_TEXT="$EMOJI *$CLAUDE_HOOK_USER_NAME*"
+  MESSAGE_TEXT="$EMOJI"
   if [[ -n "$EVENT_MESSAGE" ]]; then
-    MESSAGE_TEXT="$MESSAGE_TEXT: $EVENT_MESSAGE"
+    MESSAGE_TEXT="$MESSAGE_TEXT $EVENT_MESSAGE"
+  elif [[ "$EVENT_TYPE" == "Stop" ]]; then
+    MESSAGE_TEXT="$MESSAGE_TEXT Claude Code has finished responding"
   fi
 
   # Send to Slack
@@ -85,6 +99,8 @@ main() {
 
   RESPONSE=$(curl -s -X POST -H 'Content-type: application/json' \
     --data "{
+      \"icon_emoji\": \":robot_face:\",
+      \"username\": \"$CLAUDE_HOOK_USER_NAME\",
       \"text\": \"$MESSAGE_TEXT\"
     }" \
     "$WEBHOOK_URL" 2>&1)
