@@ -106,7 +106,7 @@ main() {
     "$WEBHOOK_URL" 2>&1)
 
   if [[ $? -eq 0 ]]; then
-    log "SUCCESS: Notification sent for event '$EVENT_TYPE'"
+    debug "SUCCESS: Notification sent for event '$EVENT_TYPE'"
     debug "Slack response: $RESPONSE"
   else
     log "ERROR: Failed to send notification for event '$EVENT_TYPE': $RESPONSE"
