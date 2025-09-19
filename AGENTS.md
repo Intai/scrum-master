@@ -2,7 +2,7 @@
 Build an extremely simple web application to pick today's scrum master from a fully remote team.
 - Cycle through team members fairly.
 - Team members can be marked as “out of office” so they’re skipped.
-- Daily hint about running a successful standup which doesn't repeat in two weeks.
+- Daily hint about running a successful standup, which doesn't repeat in two weeks.
 - Daily pub quiz which doesn't repeat in a month.
 - Create a team by entering team members' names without authentication.
 - Share with team members by a url link or a short code.
