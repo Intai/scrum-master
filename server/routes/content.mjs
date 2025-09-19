@@ -56,7 +56,9 @@ router.get('/quiz', async (req, res, next) => {
     const response = {
       id: quiz.id,
       question: quiz.question,
-      options: JSON.parse(quiz.options),
+      options: typeof quiz.options === 'string'
+        ? JSON.parse(quiz.options)
+        : quiz.options,
       category: quiz.category,
       difficulty: quiz.difficulty,
       explanation: quiz.explanation,

@@ -278,11 +278,14 @@ export const seedContent = async () => {
 
     // Insert standup tips
     for (const tip of standupTips) {
-      await query(`
-        INSERT INTO standup_tips (title, content, category, difficulty, target_team_size)
-        VALUES ($1, $2, $3, $4, $5)
-        ON CONFLICT (title) DO NOTHING
-      `, [tip.title, tip.content, tip.category, tip.difficulty, tip.target_team_size]);
+      // Check if tip already exists
+      const existing = await query('SELECT id FROM standup_tips WHERE title = $1', [tip.title]);
+      if (existing.rows.length === 0) {
+        await query(`
+          INSERT INTO standup_tips (title, content, category, difficulty, target_team_size)
+          VALUES ($1, $2, $3, $4, $5)
+        `, [tip.title, tip.content, tip.category, tip.difficulty, tip.target_team_size]);
+      }
     }
 
     console.log(`✓ Inserted ${standupTips.length} standup tips`);
@@ -291,11 +294,14 @@ export const seedContent = async () => {
 
     // Insert quiz questions
     for (const question of quizQuestions) {
-      await query(`
-        INSERT INTO quiz_questions (question, correct_answer, options, category, difficulty, explanation)
-        VALUES ($1, $2, $3, $4, $5, $6)
-        ON CONFLICT (question) DO NOTHING
-      `, [question.question, question.correct_answer, question.options, question.category, question.difficulty, question.explanation]);
+      // Check if question already exists
+      const existing = await query('SELECT id FROM quiz_questions WHERE question = $1', [question.question]);
+      if (existing.rows.length === 0) {
+        await query(`
+          INSERT INTO quiz_questions (question, correct_answer, options, category, difficulty, explanation)
+          VALUES ($1, $2, $3, $4, $5, $6)
+        `, [question.question, question.correct_answer, question.options, question.category, question.difficulty, question.explanation]);
+      }
     }
 
     console.log(`✓ Inserted ${quizQuestions.length} quiz questions`);

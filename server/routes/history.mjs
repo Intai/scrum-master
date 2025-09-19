@@ -250,7 +250,9 @@ router.get('/export', requireAdmin, async (req, res, next) => {
       })),
       rotationQueue: {
         currentPosition: rotationQueue.current_position,
-        queueOrder: JSON.parse(rotationQueue.queue_order),
+        queueOrder: typeof rotationQueue.queue_order === 'string'
+          ? JSON.parse(rotationQueue.queue_order)
+          : rotationQueue.queue_order,
         totalSelections: rotationQueue.total_selections,
         lastShuffledAt: rotationQueue.last_shuffled_at,
         algorithm: rotationQueue.algorithm
