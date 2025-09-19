@@ -145,9 +145,8 @@ export const up = async (query) => {
     CREATE INDEX idx_content_views_repetition ON content_views(team_id, content_type, viewed_date);
   `);
 
-  await query(`
-    CREATE INDEX idx_content_views_cleanup ON content_views(viewed_date) WHERE viewed_date < CURRENT_DATE - INTERVAL '60 days';
-  `);
+  // Note: Cleanup index removed due to PostgreSQL IMMUTABLE function restriction
+  // Cleanup can be done with a periodic query instead
 
   // Add constraints for content_views
   await query(`
