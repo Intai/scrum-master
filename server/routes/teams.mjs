@@ -112,7 +112,9 @@ router.get('/:teamId', optionalAdmin, async (req, res, next) => {
     }));
 
     // Transform rotation queue data
-    const queueOrder = JSON.parse(rotationQueue.queue_order);
+    const queueOrder = typeof rotationQueue.queue_order === 'string'
+      ? JSON.parse(rotationQueue.queue_order)
+      : rotationQueue.queue_order;
     const rotationData = {
       currentPosition: rotationQueue.current_position,
       queueOrder: queueOrder,
@@ -180,7 +182,9 @@ router.get('/code/:shortCode', optionalAdmin, async (req, res, next) => {
     }));
 
     // Transform rotation queue data
-    const queueOrder = JSON.parse(rotationQueue.queue_order);
+    const queueOrder = typeof rotationQueue.queue_order === 'string'
+      ? JSON.parse(rotationQueue.queue_order)
+      : rotationQueue.queue_order;
     const rotationData = {
       currentPosition: rotationQueue.current_position,
       queueOrder: queueOrder,

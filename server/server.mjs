@@ -119,7 +119,7 @@ const startServer = async () => {
     }
 
     // Start HTTP server
-    app.listen(PORT, () => {
+    app.listen(PORT, '0.0.0.0', () => {
       console.log(`
 🚀 Scrum Master API Server Started
    Port: ${PORT}

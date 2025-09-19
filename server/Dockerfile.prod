@@ -45,5 +45,5 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
 # Use dumb-init to handle signals properly
 ENTRYPOINT ["dumb-init", "--"]
 
-# Start production server
-CMD ["npm", "start"]
+# Run database setup and start production server
+CMD ["sh", "-c", "npm run setup && npm start"]

@@ -113,7 +113,9 @@ router.get('/queue', async (req, res, next) => {
     const rotationQueue = await DatabaseService.getRotationQueue(req.params.teamId);
 
     // Get member details with rotation info
-    const queueOrder = JSON.parse(rotationQueue.queue_order);
+    const queueOrder = typeof rotationQueue.queue_order === 'string'
+      ? JSON.parse(rotationQueue.queue_order)
+      : rotationQueue.queue_order;
     const memberDetailsResult = await query(`
       SELECT
         m.id,
@@ -287,7 +289,9 @@ router.post('/regenerate', requireAdmin, async (req, res, next) => {
 
     const response = {
       message: 'Rotation queue regenerated successfully',
-      queueOrder: JSON.parse(updatedQueue.queue_order),
+      queueOrder: typeof updatedQueue.queue_order === 'string'
+        ? JSON.parse(updatedQueue.queue_order)
+        : updatedQueue.queue_order,
       currentPosition: updatedQueue.current_position,
       totalMembers: activeMemberIds.length,
       lastShuffledAt: updatedQueue.last_shuffled_at
