@@ -1,4 +1,6 @@
 import { test, expect } from '@playwright/test';
+import { TeamCreationPage } from '../pages/team-creation-page.js';
+import { TeamDashboardPage } from '../pages/team-dashboard-page.js';
 
 /**
  * Test Suite: Team Management and Scrum Master Selection
@@ -10,25 +12,64 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Team Creation and Management', () => {
 
-  test('should create a new team with initial members', async ({ page }) => {
+  test('TMAS-01 should create a new team with initial members', async ({ page }) => {
     // Given: A user wants to create a new scrum master team
-    // - User navigates to the application
+    // - User navigates to the application landing page
     // - No existing team data is present
-    // - Application shows team creation interface
+    // - User clicks create team button to access team creation interface
+
+    const teamCreationPage = new TeamCreationPage(page);
+    const teamDashboardPage = new TeamDashboardPage(page);
+
+    // Navigate to the landing page and click create team
+    await teamCreationPage.navigateFromLanding();
 
     // When: User creates a team with multiple members
-    // - User enters team name via [data-testid="team-name-input"]
-    // - User adds first member via [data-testid="add-member-input"] and [data-testid="add-member-button"]
+    // - User enters team name via team creation page object
+    // - User adds first member via team creation page object
     // - User adds second member using same controls
     // - User adds third member to have sufficient members for rotation
-    // - User saves the team via [data-testid="create-team-button"]
+    // - User saves the team via team creation page object
+
+    // Enter team name
+    await teamCreationPage.enterTeamName('Test Team');
+
+    // Add first member
+    await teamCreationPage.addMember('Alice Johnson');
+
+    // Add second member
+    await teamCreationPage.addMember('Bob Smith');
+
+    // Add third member
+    await teamCreationPage.addMember('Charlie Brown');
+
+    // Save the team
+    await teamCreationPage.createTeam();
 
     // Then: Team should be created successfully
-    // - Team name should be displayed in [data-testid="current-team-name"]
-    // - All three members should appear in [data-testid="team-members-list"]
-    // - Each member should have availability toggle [data-testid="member-availability-toggle-{memberName}"]
-    // - Success message should appear via [data-testid="team-created-message"]
+    // - Team dashboard should load with correct team name
+    // - All three members should appear in team status cards
+    // - Each member should have availability status displayed
     // - URL should update to include team identifier
+
+    // Wait for dashboard to load
+    await teamDashboardPage.waitForLoad();
+
+    // Verify team name is displayed
+    const displayedTeamName = await teamDashboardPage.getTeamName();
+    expect(displayedTeamName).toBe('Test Team');
+
+    // Verify all three members appear in the team
+    expect(await teamDashboardPage.hasMember('Alice Johnson')).toBe(true);
+    expect(await teamDashboardPage.hasMember('Bob Smith')).toBe(true);
+    expect(await teamDashboardPage.hasMember('Charlie Brown')).toBe(true);
+
+    // Verify member count
+    const memberCounts = await teamDashboardPage.getMemberCounts();
+    expect(memberCounts.total).toBe(3);
+
+    // Verify URL contains team identifier
+    expect(await teamDashboardPage.hasTeamUrl()).toBe(true);
   });
 
   test('should add new members to existing team', async ({ page }) => {
