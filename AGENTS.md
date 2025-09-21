@@ -13,6 +13,7 @@ Build an extremely simple web application to pick today's scrum master from a fu
 - `Tailwind CSS` for styling.
 - `ESLint` for code linting and formatting.
 - `Vite` for tranpiling and bundle.
+- `Unsplash` for stock images.  Download directly using curl commands with API endpoints. Use `mcp__context7__get-library-docs` and `mcp__context7__resolve-library-id` for documentation. `UNSPLASH_ACCESS_KEY` is in `.env.local`.
 ### Backend
 - `Node.js` for server development.
 - `PostgreSQL` for database.

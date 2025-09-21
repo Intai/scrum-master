@@ -9,6 +9,7 @@ lerna-debug.log*
 
 # Environment and configuration files
 .env
+.env.local
 .playwright-mcp
 *.local
 
